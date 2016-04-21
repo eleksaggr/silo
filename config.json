@@ -1,0 +1,63 @@
+{
+    "logging": {
+        "disable_existing_loggers": false,
+        "formatters": {
+            "brief": {
+                "class": "logging.Formatter",
+                "datefmt": "%I:%M:%S",
+                "format": "%(levelname)-8s; %(name)-15s; %(message)s"
+            },
+            "multi-process": {
+                "class": "logging.Formatter",
+                "datefmt": "%I:%M:%S",
+                "format": "%(levelname)-8s; [%(process)d]; %(name)-15s; %(pathname)s:%(funcName)s;%(lineno)d: %(message)s"
+            },
+            "multi-thread": {
+                "class": "logging.Formatter",
+                "datefmt": "%I:%M:%S",
+                "format": "%(levelname)-8s; %(threadName)s; %(name)-15s; %(pathname)s:%(funcName)s;%(lineno)d: %(message)s"
+            },
+            "multiline": {
+                "class": "logging.Formatter",
+                "format": "Level: %(levelname)s\nTime: %(asctime)s\nProcess: %(process)d\nThread: %(threadName)s\nLogger: %(name)s\nPath: %(pathname)s:%(lineno)d\nFunction :%(funcName)s\nMessage: %(message)s\n"
+            },
+            "single-line": {
+                "class": "logging.Formatter",
+                "datefmt": "%I:%M:%S",
+                "format": "%(levelname)-8s; %(asctime)s; %(name)-15s; %(pathname)s:%(funcName)s;%(lineno)d: %(message)s"
+            },
+            "verbose": {
+                "class": "logging.Formatter",
+                "datefmt": "%I:%M:%S",
+                "format": "%(levelname)-8s; [%(process)d]; %(threadName)s; %(name)-15s; %(pathname)s:%(funcName)s;%(lineno)d: %(message)s"
+            }
+        },
+        "handlers": {
+            "debugHandler": {
+                "class": "logging.FileHandler",
+                "filename": "logs/debug.log",
+                "formatter": "verbose",
+                "level": "DEBUG"
+            },
+            "productionHandler": {
+                "backupCount": 30,
+                "class": "logging.handlers.TimedRotatingFileHandler",
+                "filename": "logs/production.log",
+                "formatter": "single-line",
+                "level": "INFO",
+                "when": "midnight"
+            }
+        },
+        "loggers": {
+            "default": {
+                "handlers": [
+                    "debugHandler",
+                    "productionHandler"
+                ],
+                "level": "DEBUG",
+                "propagate": "no"
+            }
+        },
+        "version": 1
+    }
+}
