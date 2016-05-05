@@ -6,7 +6,6 @@ import sys
 
 
 class LogHandler(socketserver.BaseRequestHandler):
-
     def __init__(self, request, client_address, server):
         super().__init__(request, client_address, server)
 
@@ -40,10 +39,6 @@ def initLogging(config, fallbackLevel="INFO"):
         # Fallback to basic logging configuration.
         logging.basicConfig(level=fallbackLevel)
         logging.warn("Could not load logging configuration. Fallback enabled.")
-
-
-def initParser():
-    parser = optparse.OptionParser()
 
 
 def loadConfig(path):
