@@ -19,12 +19,19 @@ class LogHandler(socketserver.BaseRequestHandler):
         except ValueError as e:
             self.logger.info(
                 "Malformed message length received. Aborting connection.")
-            self.logger.exception(e, exc_info=True)
+            self.logger.exception(e)
             return
 
         message = self.request.recv(length).decode("utf-8")
-        print(message)
+        print(self.parse(message))
 
+    def parse(self, message):
+        document = None
+        try:
+            document = json.loads(message)
+        except json.JSONDecodeError as e:
+            self.logger.info("Malformed JSON message received. Aborting parsing.")
+        return document
 
 def initLogging(config, fallbackLevel="INFO"):
     """Initialize the logging system, with the specified configuration.
