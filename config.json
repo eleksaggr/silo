@@ -1,4 +1,10 @@
 {
+    "database": {
+        "host": "127.0.0.1",
+        "port": 27017,
+        "db": "silo"
+    },
+
     "logging": {
         "disable_existing_loggers": false,
         "formatters": {
