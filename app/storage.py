@@ -18,11 +18,10 @@ class LogDatabase(object):
         db = self._openConnection()
         collection = db.entries
 
-        document = {id: entry.id,
-                    service: entry.service,
-                    time: entry.time,
-                    path: entry.path,
-                    data: entry.data}
+        document = {"service": entry.service,
+                    "time": entry.time,
+                    "path": entry.path,
+                    "data": entry.data}
 
         collection.insert_one(document)
 
@@ -40,9 +39,12 @@ class LogDatabase(object):
 
 
 class LogEntry(object):
-    def __init__(self, id, service, time, path):
-        self.id = id
+    def __init__(self, service, time, path, data=None):
+        self.id = None
         self.service = service
         self.time = time
         self.path = path
-        self.data = {}
+        if data is not None:
+            self.data = data
+        else:
+            self.data = {}
